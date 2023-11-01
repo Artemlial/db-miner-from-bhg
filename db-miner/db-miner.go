@@ -31,15 +31,19 @@ func Search(m DatabaseMiner) error {
 
 	re := getRegex()
 	for _, database := range s.Databases {
+		fmt.Printf("Scanning DataBase: %s\n", database.Name)
 		for _, table := range database.Tables {
+			fmt.Printf("Scanning Table %s.%s:\n", database.Name, table.Name)
+			hits := 0
 			for _, field := range table.Columns {
 				for _, r := range re {
 					if r.MatchString(field) {
-						fmt.Println(database)
+						hits++
 						fmt.Printf("[+] HIT: %s\n", field)
 					}
 				}
 			}
+			fmt.Printf("Got %d hits for Table %s.%s\n\n\n", hits, database.Name, table.Name)
 		}
 	}
 	return nil
@@ -55,5 +59,9 @@ func getRegex() []*regexp.Regexp {
 		regexp.MustCompile(`(?i)card`),
 		regexp.MustCompile(`(?i)security`),
 		regexp.MustCompile(`(?i)key`),
+		regexp.MustCompile(`(?i)cvv`),
+		regexp.MustCompile(`(?i)expiration`),
+		regexp.MustCompile(`(?i)exp`),
+		regexp.MustCompile(`(?i)expires`),
 	}
 }
