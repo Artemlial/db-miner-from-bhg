@@ -1,4 +1,4 @@
-module data-miner
+module mongo-miner
 
 go 1.20
 
@@ -20,4 +20,4 @@ require (
 	golang.org/x/text v0.7.0 // indirect
 )
 
-replace dbMiner => ./db-miner
+replace dbMiner => ../db-miner
